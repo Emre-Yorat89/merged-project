@@ -157,8 +157,8 @@ if config.get("mode") == "brown_field":
             lines="resources/" + RDIR + "osm/raw/all_raw_lines.geojson",
             substations="resources/" + RDIR + "osm/raw/all_raw_substations.geojson",
             country_shapes="resources/shapes/microgrid_shapes.geojson",
-            offshore_shapes="../resources/shapes/offshore_shapes.geojson"),
-            africa_shape="../resources/shapes/africa_shape.geojson"),
+            offshore_shapes="../resources/shapes/offshore_shapes.geojson",
+            africa_shape="../resources/shapes/africa_shape.geojson",
         output:
             generators="resources/" + RDIR + "osm/clean/all_clean_generators.geojson",
             generators_csv="resources/" + RDIR + "osm/clean/all_clean_generators.csv",
@@ -241,7 +241,7 @@ if config.get("mode") == "brown_field":
             + RDIR
             + "base_network/all_transformers_build_network.csv",
             country_shapes="resources/shapes/microgrid_shapes.geojson",
-            offshore_shapes="../resources/shapes/offshore_shapes.geojson"),
+            offshore_shapes="../resources/shapes/offshore_shapes.geojson",
         output:
             "networks/" + RDIR + "base.nc",
         log:
@@ -261,13 +261,13 @@ if config.get("mode") == "brown_field":
             countries=config["countries"],
         input:
             country_shapes="resources/shapes/microgrid_shapes.geojson",
-            offshore_shapes="../resources/shapes/offshore_shapes.geojson"),
+            offshore_shapes="../resources/shapes/offshore_shapes.geojson",
             base_network="networks/" + RDIR + "base.nc",
             #gadm_shapes="resources/" + RDIR + "shapes/MAR2.geojson",
             #using this line instead of the following will test updated gadm shapes for MA.
             #To use: downlaod file from the google drive and place it in resources/" + RDIR + "shapes/
             #Link: https://drive.google.com/drive/u/1/folders/1dkW1wKBWvSY4i-XEuQFFBj242p0VdUlM
-            gadm_shapes="../resources/" + RDIR + "shapes/gadm_shapes.geojson"),
+            gadm_shapes="../resources/" + RDIR + "shapes/gadm_shapes.geojson",
         output:
             regions_onshore="resources/" + RDIR + "bus_regions/regions_onshore.geojson",
             regions_offshore="resources/"
@@ -312,13 +312,11 @@ rule dist_build_renewable_profiles:
         countries=config["countries"],
         alternative_clustering=config["cluster_options"]["alternative_clustering"],
     input:
-        natura="../resources/natura.tiff"),
-        copernicus=pypsaearth(
-            "data/copernicus/PROBAV_LC100_global_v3.0.1_2019-nrt_Discrete-Classification-map_EPSG-4326.tif"
-        ),
-        gebco="../data/gebco/GEBCO_2025_sub_ice.nc"),
+        natura="../resources/natura.tiff",
+        copernicus="data/copernicus/PROBAV_LC100_global_v3.0.1_2019-nrt_Discrete-Classification-map_EPSG-4326.tif",
+        gebco="../data/gebco/GEBCO_2025_sub_ice.nc",
         country_shapes="resources/shapes/microgrid_shapes.geojson",
-        offshore_shapes="../resources/shapes/offshore_shapes.geojson"),
+        offshore_shapes="../resources/shapes/offshore_shapes.geojson",
         hydro_capacities="pypsa-earth/data/hydro_capacities.csv",
         eia_hydro_generation="pypsa-earth/data/eia_hydro_annual_generation.csv",
         powerplants="resources/powerplants.csv",
@@ -333,9 +331,7 @@ rule dist_build_renewable_profiles:
             if config.get("mode") == "brown_field"
             else "resources/shapes/microgrid_bus_shapes.geojson"
         ),
-        cutout=lambda w: pypsaearth(
-            "cutouts/" + config["renewable"][w.technology]["cutout"] + ".nc"
-        ),
+        cutout=lambda w: "cutouts/" + config["renewable"][w.technology]["cutout"] + ".nc",
     output:
         profile="resources/renewable_profiles/profile_{technology}.nc",
     log:
