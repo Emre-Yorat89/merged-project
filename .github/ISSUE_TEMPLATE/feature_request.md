@@ -7,7 +7,11 @@ assignees: ''
 
 ---
 
+<<<<<<< HEAD
 <!-- Please do not post usage questions here. Ask them on the Q&A at the discussion tab on GitHub: https://github.com/pypsa-meets-earth/pypsa-earth/discussions/categories/q-a -->
+=======
+<!-- Please do not post usage questions here. Ask them on the Q&A at the discussion tab on GitHub: https://github.com/pypsa-meets-earth/pypsa-distribution/discussions/categories/q-a -->
+>>>>>>> distribution/the_changes_for_fork_v1
 
 ## Describe the feature you'd like to see
 

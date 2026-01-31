@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 # SPDX-FileCopyrightText:  PyPSA-Earth and PyPSA-Eur Authors
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 # Minimal makefile for Sphinx documentation
+=======
+# Minimal makefile for Sphinx documentation
+#
+
+>>>>>>> distribution/the_changes_for_fork_v1
 # You can set these variables from the command line, and also
 # from the environment for the first two.
 SPHINXOPTS    ?=
