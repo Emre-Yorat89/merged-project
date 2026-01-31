@@ -1,3 +1,5 @@
+PROFILE = "data/dist_data/sample_profile.csv"
+
 rule dist_ramp_build_demand_profile:
     params:
         ramp=config["ramp"],
