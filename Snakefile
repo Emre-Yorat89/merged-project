@@ -89,7 +89,8 @@ if config["custom_rules"] is not []:
         include: rule
 
 
-include: "rules/pypsa_distribution.smk"
+if not config["enable"].get("disable_distribution_workflow"):
+    include: "rules/pypsa_distribution.smk"
 
 rule clean:
     run:
