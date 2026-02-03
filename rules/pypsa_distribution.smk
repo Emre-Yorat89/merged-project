@@ -1,3 +1,4 @@
+COSTS = "data/costs_dist.csv"
 PROFILE = "data/dist_data/sample_profile.csv"
 
 rule dist_ramp_build_demand_profile:
@@ -107,18 +108,18 @@ if config["enable"].get("download_osm_buildings", True):
 
     rule dist_download_osm_data:
         output:
-            buildings_resources="dist_dist_resources/"
+            buildings_resources="dist_resources/"
             + RDIR
             + "osm/raw/all_raw_buildings.geojson",
-            lines_resources="dist_dist_resources/" + RDIR + "osm/raw/all_raw_lines.geojson",
-            cables_resources="dist_dist_resources/" + RDIR + "osm/raw/all_raw_cables.geojson",
-            generators_resources="dist_dist_resources/"
+            lines_resources="dist_resources/" + RDIR + "osm/raw/all_raw_lines.geojson",
+            cables_resources="dist_resources/" + RDIR + "osm/raw/all_raw_cables.geojson",
+            generators_resources="dist_resources/"
             + RDIR
             + "osm/raw/all_raw_generators.geojson",
-            substations_resources="dist_dist_resources/"
+            substations_resources="dist_resources/"
             + RDIR
             + "osm/raw/all_raw_substations.geojson",
-            poles_resources="dist_dist_resources/" + RDIR + "osm/raw/all_raw_poles.geojson",
+            poles_resources="dist_resources/" + RDIR + "osm/raw/all_raw_poles.geojson",
         log:
             "logs/" + RDIR + "dist_download_osm_data.log",
         benchmark:
@@ -132,7 +133,7 @@ if config["enable"].get("download_osm_buildings", True):
 
 rule dist_clean_earth_osm_data:
     input:
-        all_buildings="dist_dist_resources/" + RDIR + "osm/raw/all_raw_buildings.geojson",
+        all_buildings="dist_resources/" + RDIR + "osm/raw/all_raw_buildings.geojson",
         microgrid_shapes="dist_resources/shapes/microgrid_shapes.geojson",
     output:
         microgrid_building="dist_resources/buildings/microgrid_building.geojson",
@@ -159,7 +160,7 @@ if config.get("mode") == "brown_field":
             lines="dist_resources/" + RDIR + "osm/raw/all_raw_lines.geojson",
             substations="dist_resources/" + RDIR + "osm/raw/all_raw_substations.geojson",
             country_shapes="dist_resources/shapes/microgrid_shapes.geojson",
-            offshore_shapes="../dist_resources/shapes/offshore_shapes.geojson",
+            offshore_shapes="resources/shapes/offshore_shapes.geojson",
             africa_shape="../dist_resources/shapes/africa_shape.geojson",
         output:
             generators="dist_resources/" + RDIR + "osm/clean/all_clean_generators.geojson",
@@ -243,7 +244,7 @@ if config.get("mode") == "brown_field":
             + RDIR
             + "base_network/all_transformers_build_network.csv",
             country_shapes="dist_resources/shapes/microgrid_shapes.geojson",
-            offshore_shapes="../dist_resources/shapes/offshore_shapes.geojson",
+            offshore_shapes="resources/shapes/offshore_shapes.geojson",
         output:
             "networks/" + RDIR + "base.nc",
         log:
@@ -263,7 +264,7 @@ if config.get("mode") == "brown_field":
             countries=config["countries"],
         input:
             country_shapes="dist_resources/shapes/microgrid_shapes.geojson",
-            offshore_shapes="../dist_resources/shapes/offshore_shapes.geojson",
+            offshore_shapes="resources/shapes/offshore_shapes.geojson",
             base_network="networks/" + RDIR + "base.nc",
             #gadm_shapes="dist_resources/" + RDIR + "shapes/MAR2.geojson",
             #using this line instead of the following will test updated gadm shapes for MA.
@@ -314,14 +315,14 @@ rule dist_build_renewable_profiles:
         countries=config["countries"],
         alternative_clustering=config["cluster_options"]["alternative_clustering"],
     input:
-        natura="../dist_resources/natura.tiff",
+        natura="resources/natura.tiff",
         copernicus="data/copernicus/PROBAV_LC100_global_v3.0.1_2019-nrt_Discrete-Classification-map_EPSG-4326.tif",
-        gebco="../data/gebco/GEBCO_2025_sub_ice.nc",
+        gebco="data/gebco/GEBCO_2025_sub_ice.nc",
         country_shapes="dist_resources/shapes/microgrid_shapes.geojson",
-        offshore_shapes="../dist_resources/shapes/offshore_shapes.geojson",
-        hydro_capacities="pypsa-earth/data/hydro_capacities.csv",
-        eia_hydro_generation="pypsa-earth/data/eia_hydro_annual_generation.csv",
-        powerplants="dist_resources/powerplants.csv",
+        offshore_shapes="resources/shapes/offshore_shapes.geojson",
+        hydro_capacities="data/hydro_capacities.csv",
+        eia_hydro_generation="data/eia_hydro_annual_generation.csv",
+        powerplants="resources/powerplants.csv",
         regions=(
             (
                 lambda w: (

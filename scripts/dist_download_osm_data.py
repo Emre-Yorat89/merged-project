@@ -500,7 +500,7 @@ if __name__ == "__main__":
         microgrids_list = snakemake.config["microgrids_list"]
         mode = snakemake.config.get("mode", "green_field")
         overpass_url = "https://overpass-api.de/api/interpreter"
-        output_dir = Path.cwd() / "resources" / RDIR / "osm" / "raw"
+        output_dir = Path.cwd() / "dist_resources" / RDIR / "osm" / "raw"
 
         # Buildings are always downloaded
         # Other features (lines, cables, generators, substations, poles) are only downloaded in brown_field mode
